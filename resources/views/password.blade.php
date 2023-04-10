@@ -19,7 +19,6 @@ $affixLabelClasses = ['whitespace-nowrap group-focus-within:text-primary-500', '
 >
     <div
         {{ $attributes->merge($getExtraAttributes())->class(['flex items-center space-x-2 rtl:space-x-reverse group filament-forms-text-input-component']) }}
-        x-data="{ isRTL: false }" x-init="$nextTick(() => { isRTL = document.body.dir === 'rtl' })"
     >
         @if (($prefixAction = $getPrefixAction()) && !$prefixAction->isHidden())
             {{ $prefixAction }}
@@ -95,10 +94,8 @@ $affixLabelClasses = ['whitespace-nowrap group-focus-within:text-primary-500', '
                     '!pr-20' => $isRevealable() && $isCopyable() && $isGeneratable(),
                 ]) }}
             >
-            <div class="absolute inset-y-0 {{isRTL === 'rtl'?'left-0':'right-0'}} mr-1 ml-1 flex items-center gap-1 pr-2 text-sm leading-5"
-
+            <div class="absolute inset-y-0 {{isRTL() === 'rtl'?'left-0':'right-0'}} mr-1 ml-1 flex items-center gap-1 pr-2 text-sm leading-5"
             >
-
                 @if ($isGeneratable())
                     <button
                         type="button"
