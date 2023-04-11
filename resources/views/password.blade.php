@@ -42,6 +42,7 @@ $affixLabelClasses = ['whitespace-nowrap group-focus-within:text-primary-500', '
             x-data="{
                 id: 0,
                 show: false,
+                isRtl: false,
                 generatePasswd: function() {
                     let chars = '{{ $getPasswChars() }}';
                     let password = '';
@@ -70,6 +71,8 @@ $affixLabelClasses = ['whitespace-nowrap group-focus-within:text-primary-500', '
                     @endif
                 },
             }"
+            x-init="$nextTick(() => { isRtl = document.documentElement.dir === 'rtl' })"
+
         >
             <input
                 x-ref="{{ $getXRef() }}"
@@ -94,7 +97,8 @@ $affixLabelClasses = ['whitespace-nowrap group-focus-within:text-primary-500', '
                     '!pr-20' => $isRevealable() && $isCopyable() && $isGeneratable(),
                 ]) }}
             >
-            <div class="absolute inset-y-0 {{isRTL() === 'rtl'?'left-0':'right-0'}} mr-1 ml-1 flex items-center gap-1 pr-2 text-sm leading-5"
+            <div class="absolute inset-y-0 mr-1 ml-1 flex items-center gap-1 pr-2 text-sm leading-5"
+                 x-bind:class="isRtl ? 'left-0' : 'right-0'"
             >
                 @if ($isGeneratable())
                     <button
